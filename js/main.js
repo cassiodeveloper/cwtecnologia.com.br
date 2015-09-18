@@ -137,6 +137,7 @@ jQuery(function($) {
 	//Google Map
 	var latitude = $('#google-map').data('latitude')
 	var longitude = $('#google-map').data('longitude')
+	
 	function initialize_map() {
 		var myLatlng = new google.maps.LatLng(latitude,longitude);
 		var mapOptions = {
@@ -159,5 +160,18 @@ jQuery(function($) {
 	}
 	google.maps.event.addDomListener(window, 'load', initialize_map);
 	
-});
+	//Presets
+	var presets = $('.style-chooser ul li');
 
+	$('.style-chooser .toggler').on('click', function(event){
+		event.preventDefault();
+		$(this).closest('.style-chooser').toggleClass('opened');
+	});
+
+	$('.style-chooser ul li a').on('click', function(event){
+		event.preventDefault();
+		presets.removeClass('active');
+		$(this).parent().addClass('active');
+		$('#css-preset').removeAttr('href').attr('href', 'css/presets/preset' + $(this).parent().data('preset') + '.css');
+	})	
+});
